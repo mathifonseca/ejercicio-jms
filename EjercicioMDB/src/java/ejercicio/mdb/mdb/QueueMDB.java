@@ -5,7 +5,7 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-@MessageDriven(mappedName = "jms/queue", activationConfig = {
+@MessageDriven(mappedName = "jms/Queue", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class QueueMDB implements MessageListener {

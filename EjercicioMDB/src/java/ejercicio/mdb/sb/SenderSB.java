@@ -4,14 +4,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.jms.Topic;
+import javax.jms.*;
 
 @Stateless
 @LocalBean
@@ -37,15 +32,19 @@ public class SenderSB {
             MessageProducer producer = session.createProducer(queue);
             
             TextMessage message = session.createTextMessage();
+            
             message.setText("MENSAJE DE PRUEBA!!!");
+            
             producer.send(message);
+            
+            session.close();
             
             connection.close();
             
-        } catch (Exception ex) {
+        } catch (JMSException ex) {
             Logger.getLogger(SenderSB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
     
     public void sendToTopic() {
